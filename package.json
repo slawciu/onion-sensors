@@ -1,0 +1,19 @@
+{
+  "name": "onion-sensors",
+  "version": "1.0.0",
+  "description": "Code to read sensors readings connected to the Omega Onion device",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slawciu/onion-sensors.git"
+  },
+  "author": "slawomir.rudawski@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/slawciu/onion-sensors/issues"
+  },
+  "homepage": "https://github.com/slawciu/onion-sensors#readme"
+}
