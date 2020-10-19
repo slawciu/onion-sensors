@@ -1,5 +1,6 @@
 const fs = require('fs');
 const {sendMeasurements} = require('./api');
+
 const cat = async path => {
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf8', (err, data) => {

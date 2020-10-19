@@ -1,13 +1,16 @@
 var axios = require('axios');
+var {loadConfiguration} = require('./config');
 
 const sendMeasurements = async (temperature1, temperature2) => {
-  const data = `sensors device=${process.env.DEVICE_NAME},reading01=${temperature1},reading02=${temperature2}`;
+  const config = loadConfiguration();
+  
+  const data = `sensors device=${config.deviceName},reading01=${temperature1},reading02=${temperature2}`;
 
   var config = {
     method: 'post',
-    url: `${process.env.API_URL}/write?db=${process.env.INFLUX_DATABASE}`,
+    url: `${config.apiUrl}/write?db=${config.influxDatabase}`,
     headers: { 
-      'Authorization': `Basic ${process.env.API_URL}`, 
+      'Authorization': `Basic ${config.basicAuthToken}`, 
       'Content-Type': 'text/plain'
     },
     data : data
