@@ -6,7 +6,7 @@ const sendMeasurements = async (temperature1, temperature2) => {
   
   const data = `sensors device=${config.deviceName},reading01=${temperature1},reading02=${temperature2}`;
 
-  var config = {
+  var requestConfig = {
     method: 'post',
     url: `${config.apiUrl}/write?db=${config.influxDatabase}`,
     headers: { 
@@ -16,7 +16,7 @@ const sendMeasurements = async (temperature1, temperature2) => {
     data : data
   };
 
-  await axios(config)
+  await axios(requestConfig)
   .then(function (response) {
     console.log(JSON.stringify(response.data));
   })
