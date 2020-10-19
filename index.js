@@ -1,8 +1,15 @@
 const fs = require('fs');
 
 const cat = async path => {
-  const data = await fs.readFile(path);
-  return data;
+  new Promise((resolve, reject) => {
+    fs.readFile(path, (err, data) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(data);
+      }
+    });
+  })
 }
 
 const readOneWire = async () => {
