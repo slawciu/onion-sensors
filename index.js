@@ -48,7 +48,7 @@ const main = async () => {
 
   const temperatureReadings = await Promise.all(temperatureReadingsPromises);
   temperatureReadings.forEach(reading => {
-    console.log(`${reading.deviceId}: ${reading.value}`);
+    console.log(`[${new Date().toISOString}]: ${reading.deviceId}: ${reading.value}`);
   })
 }
 
