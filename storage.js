@@ -12,7 +12,7 @@ const saveReadingsToCsv = (device, reading01, reading02) => {
   writer.end();
 }
 
-exports.module = {
+module.exports = {
   saveReadingsToCsv
 }
 
