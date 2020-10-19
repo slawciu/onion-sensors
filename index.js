@@ -41,9 +41,17 @@ const main = async () => {
   console.log(`Detected ${numberOfDevices} device${numberOfDevices > 1 ? 's' : ''}`);
   const deviceIds = await oneWire.bus.getDevicesIds();
   console.log(deviceIds);
-  deviceIds.foreach(deviceId => {
-    const reading = await oneWire.sensor.temperature.getReading(deviceId);
-    console.log(`${deviceId}: ${reading}`);
+  const temperatureReadingsPromises = deviceIds.map(deviceId => {
+    const value = await oneWire.sensor.temperature.getReading(deviceId);
+    return {
+      deviceId,
+      value
+    }
+  });
+
+  const temperatureReadings = await Promise.all(temperatureReadingsPromises);
+  temperatureReadings.forEach(reading => {
+    console.log(`${reading.deviceId}: ${reading.value}`);
   })
 }
 
