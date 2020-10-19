@@ -9,7 +9,7 @@ const loadConfiguration = () => {
     deviceName: process.argv[deviceNameIndex + 1],
     influxDatabase: process.argv[influxDatabaseIndex + 1],
     basicAuthToken: process.argv[basicAuthTokenIndex + 1],
-    readingFrequency: process.argv[readingFrequencyIndex + 1],
+    readingFrequency: Number(process.argv[readingFrequencyIndex + 1]),
   }
 }
 
