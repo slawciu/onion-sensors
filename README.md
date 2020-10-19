@@ -45,3 +45,11 @@ Human readable format
 ```
 awk -F= '/t=/ {printf "%.03f\n", \$2/1000}' /sys/devices/w1_bus_master1/<DeviceID>/w1_slave
 ```
+
+## Development
+
+Install packages on Onion device:
+
+```
+node --max_old_space_size=64 $(which npm) install <package-name>
+```
