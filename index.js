@@ -19,12 +19,12 @@ const oneWire = {
       return Number(result);
     },
     getReading: async deviceId => {
-      const result = await cat(`cat /sys/devices/w1_bus_master1/${deviceId}/w1_slave`);
+      const result = await cat(`/sys/devices/w1_bus_master1/${deviceId}/w1_slave`);
       return result;
     },
     getDevicesIds: async () => {
-      const result = await cat(`cat /sys/devices/w1_bus_master1/w1_master_slaves`);
-      return result;
+      const result = await cat(`/sys/devices/w1_bus_master1/w1_master_slaves`);
+      return result.split('\n').filter(deviceId => deviceId !== '');
     }
   },
   sensor: {
@@ -41,10 +41,10 @@ const main = async () => {
   console.log(`Detected ${numberOfDevices} device${numberOfDevices > 1 ? 's' : ''}`);
   const deviceIds = await oneWire.bus.getDevicesIds();
   console.log(deviceIds);
-  // deviceIds.foreach(deviceId => {
-  //   const reading = await oneWire.sensor.temperature.getReading(deviceId);
-  //   console.log(`${deviceId}: ${reading}`);
-  // })
+  deviceIds.foreach(deviceId => {
+    const reading = await oneWire.sensor.temperature.getReading(deviceId);
+    console.log(`${deviceId}: ${reading}`);
+  })
 }
 
 main();
