@@ -26,8 +26,11 @@ const oneWire = {
   sensor: {
     temperature: {
       getReading: async deviceId => {
-        const reading = await cat(`/sys/devices/w1_bus_master1/${deviceId}/w1_slave`);;
-        return reading;
+        const value = await cat(`/sys/devices/w1_bus_master1/${deviceId}/w1_slave`);;
+        return {
+          value,
+          deviceId
+        };
       }
     }
   }
@@ -38,11 +41,7 @@ const main = async () => {
   const deviceIds = await oneWire.bus.getDevicesIds();
   console.log(deviceIds);
   const temperatureReadingsPromises = deviceIds.map(deviceId => {
-    const value = await oneWire.sensor.temperature.getReading(deviceId);
-    return {
-      deviceId,
-      value
-    }
+    return oneWire.sensor.temperature.getReading(deviceId);
   });
 
   const temperatureReadings = await Promise.all(temperatureReadingsPromises);
