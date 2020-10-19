@@ -4,7 +4,7 @@ var {loadConfiguration} = require('./config');
 const sendMeasurements = async (temperature1, temperature2) => {
   const config = loadConfiguration();
   
-  const data = `sensors device=${config.deviceName},reading01=${temperature1},reading02=${temperature2}`;
+  const data = `sensors device="${config.deviceName}",reading01=${temperature1},reading02=${temperature2}`;
 
   var requestConfig = {
     method: 'post',
