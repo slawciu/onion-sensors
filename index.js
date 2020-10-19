@@ -19,6 +19,9 @@ const oneWire = {
     }
   }
 }
+const main = async () => {
+  const numberOfDevices = await oneWire.bus.getNumberOfDevices();
+  console.log(numberOfDevices);
+}
 
-const numberOfDevices = oneWire.bus.getNumberOfDevices();
-console.log(numberOfDevices);
+main();
