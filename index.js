@@ -26,7 +26,9 @@ const oneWire = {
   sensor: {
     temperature: {
       getReading: async deviceId => {
-        const value = await cat(`/sys/devices/w1_bus_master1/${deviceId}/w1_slave`);;
+        const reading = await cat(`/sys/devices/w1_bus_master1/${deviceId}/w1_slave`);;
+        
+        const value = Number(reading.substr(reading.indexOf('t=')+2))/1000; 
         return {
           value,
           deviceId
