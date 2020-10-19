@@ -1,5 +1,7 @@
 const fs = require('fs');
-const {sendMeasurements} = require('./api');
+const { sendMeasurements } = require('./api');
+const { saveReadingsToCsv } = require('./storage');
+const { loadConfiguration } = require('./config');
 
 const cat = async path => {
   return new Promise((resolve, reject) => {
@@ -60,6 +62,9 @@ const main = async () => {
   })
 
   await sendMeasurements(temperatureReadings[0].value, temperatureReadings[1].value);
+  
+  const config = loadConfiguration();
+  saveReadingsToCsv(config.deviceName, temperatureReadings[0].value, temperatureReadings[1].value)
 }
 
 main();
