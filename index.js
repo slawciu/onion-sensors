@@ -48,23 +48,27 @@ const oneWire = {
   }
 }
 const main = async () => {
-  const numberOfDevices = await oneWire.bus.getNumberOfDevices();
-  console.log(`Detected ${numberOfDevices} device${numberOfDevices > 1 ? 's' : ''}`);
-  const deviceIds = await oneWire.bus.getDevicesIds();
-  console.log(deviceIds);
-  const temperatureReadingsPromises = deviceIds.map(deviceId => {
-    return oneWire.sensor.temperature.getReading(deviceId);
-  });
+  while (1) {
 
-  const temperatureReadings = await Promise.all(temperatureReadingsPromises);
-  temperatureReadings.forEach(reading => {
-    console.log(`[${new Date().toISOString()}]: ${reading.deviceId}: ${reading.value}`);
-  })
+    const numberOfDevices = await oneWire.bus.getNumberOfDevices();
+    console.log(`Detected ${numberOfDevices} device${numberOfDevices > 1 ? 's' : ''}`);
+    const deviceIds = await oneWire.bus.getDevicesIds();
+    console.log(deviceIds);
+    const temperatureReadingsPromises = deviceIds.map(deviceId => {
+      return oneWire.sensor.temperature.getReading(deviceId);
+    });
 
-  await sendMeasurements(temperatureReadings[0].value, temperatureReadings[1].value);
-  
-  const config = loadConfiguration();
-  saveReadingsToCsv(config.deviceName, temperatureReadings[0].value, temperatureReadings[1].value)
+    const temperatureReadings = await Promise.all(temperatureReadingsPromises);
+    temperatureReadings.forEach(reading => {
+      console.log(`[${new Date().toISOString()}]: ${reading.deviceId}: ${reading.value}`);
+    })
+    
+    await sendMeasurements(temperatureReadings[0].value, temperatureReadings[1].value);
+    
+    const config = loadConfiguration();
+    saveReadingsToCsv(config.deviceName, temperatureReadings[0].value, temperatureReadings[1].value)
+    await new Promise(resolve => setTimeout(resolve, 30*000));
+  }
 }
 
 main();
