@@ -67,7 +67,7 @@ const main = async () => {
     
     const config = loadConfiguration();
     saveReadingsToCsv(config.deviceName, temperatureReadings[0].value, temperatureReadings[1].value)
-    await new Promise(resolve => setTimeout(resolve, 30*000));
+    await new Promise(resolve => setTimeout(resolve, config.readingFrequency*1000));
   }
 }
 
