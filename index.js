@@ -16,8 +16,14 @@ const cat = async path => {
 const oneWire = {
   bus: {
     getNumberOfDevices: async () => {
-      const result = await cat(`/sys/devices/w1_bus_master1/w1_master_slave_count`);
-      return Number(result);
+      try {
+        const result = await cat(`/sys/devices/w1_bus_master1/w1_master_slave_count`);
+        return Number(result);
+
+      } catch (e) {
+        console.log("One wire is disabled.");
+        return 0;
+      }
     },
     getDevicesIds: async () => {
       const result = await cat(`/sys/devices/w1_bus_master1/w1_master_slaves`);
