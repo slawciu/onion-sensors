@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const {sendMeasurements} = require('./api');
 const cat = async path => {
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf8', (err, data) => {
@@ -30,6 +30,7 @@ const oneWire = {
         
         const value = Number(reading.substr(reading.indexOf('t=')+2))/1000; 
         return {
+          timestamp: new Date().getTime(),
           value,
           deviceId
         };
@@ -50,6 +51,8 @@ const main = async () => {
   temperatureReadings.forEach(reading => {
     console.log(`[${new Date().toISOString()}]: ${reading.deviceId}: ${reading.value}`);
   })
+
+  await sendMeasurements(temperatureReadings[0].value, temperatureReadings[1].value);
 }
 
 main();

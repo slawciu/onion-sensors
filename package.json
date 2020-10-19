@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/slawciu/onion-sensors/issues"
   },
-  "homepage": "https://github.com/slawciu/onion-sensors#readme"
+  "homepage": "https://github.com/slawciu/onion-sensors#readme",
+  "dependencies": {
+    "axios": "^0.20.0"
+  }
 }
