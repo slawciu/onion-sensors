@@ -2,6 +2,26 @@
 
 This repository contains some code to read sensors readings connected to the Omega Onion device.
 
+## Setup
+
+Connect to your omega and put the code in there (scp or git). Fill `startup.sh` with proper values and add `startup.sh` and `setup.sh` to startup scripts:
+
+```
+vi /etc/rc.local
+```
+
+add here:
+
+```
+sh ~/onion-sensors/setup.sh
+```
+
+and
+
+```
+sh ~/onion-sensors/startup.sh
+```
+
 ## OneWire
 
 Connect OneWire devices to GPIO of your choice (mine is 19) and run the command:

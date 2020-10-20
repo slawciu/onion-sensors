@@ -1,0 +1,1 @@
+npm start -- --api-url INFLUX_DB_SERVER --device-name DEVICE_NAME --influx-database DATABASE --basic-auth-token AUTH_TOKEN --read-every-s 30
