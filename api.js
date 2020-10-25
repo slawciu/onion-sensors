@@ -1,10 +1,10 @@
 var axios = require('axios');
 var {loadConfiguration} = require('./config');
 
-const sendMeasurements = async (temperature1, temperature2) => {
+const sendMeasurements = async (temperature1, temperature2, time) => {
   const config = loadConfiguration();
   
-  const data = `sensors device="${config.deviceName}",reading01=${temperature1},reading02=${temperature2}`;
+  const data = `sensors device="${config.deviceName}",reading01=${temperature1},reading02=${temperature2}${time ? `,time=${time}` : ""}`;
 
   var requestConfig = {
     method: 'post',
